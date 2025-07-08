@@ -1,28 +1,29 @@
-'use client'
-import { useEffect } from 'react'
-import { useSearchParams ,useRouter} from 'next/navigation'
-import { useProjectStore } from '@/store/projectStore'
-import ProjectCard from '@/components/component/ProjectCard'
-import InteractiveMap from '@/components/component/InteractiveMap'
-import LoadingSpinner from '@/components/component/LoadingSpinner'
-import ProgressBar from '@/components/component/ProgressBar'
+"use client";
+import { Suspense, useEffect } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+import { useProjectStore } from "@/store/projectStore";
+import ProjectCard from "@/components/component/ProjectCard";
+import InteractiveMap from "@/components/component/InteractiveMap";
+import LoadingSpinner from "@/components/component/LoadingSpinner";
+import ProgressBar from "@/components/component/ProgressBar";
 
-export default function CityPage() {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const cityName = searchParams.get('cityName')
- 
-  const { projects, loading, error, progress, fetchProjects, clearProjects } = useProjectStore()
+function CityPage() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const cityName = searchParams.get("cityName");
+
+  const { projects, loading, error, progress, fetchProjects, clearProjects } =
+    useProjectStore();
 
   useEffect(() => {
     if (cityName) {
-      clearProjects()
-      fetchProjects(cityName)
+      clearProjects();
+      fetchProjects(cityName);
     }
-  }, [cityName, fetchProjects, clearProjects])
+  }, [cityName, fetchProjects, clearProjects]);
 
   if (!cityName) {
-    return <LoadingSpinner />
+    return <LoadingSpinner />;
   }
 
   return (
@@ -74,5 +75,13 @@ export default function CityPage() {
         </div>
       </div>
     </div>
-  )
+  );
+}
+
+export default function Page() {
+  return (
+    <Suspense fallback={<>Loading...</>}>
+      <CityPage />
+    </Suspense>
+  );
 }
