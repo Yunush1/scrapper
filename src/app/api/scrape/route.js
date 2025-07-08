@@ -288,11 +288,11 @@ export async function GET(req,res) {
     const response = await axios.get(url);
     const $ = cheerio.load(response.data);
     let coordinates = {lat:28.199,lang:17.833};
-    try {
-      coordinates =  await getCoordinates(city);
-    } catch (error) {
-      console.error("error on getting coordinated")
-    }
+    // try {
+    //   coordinates =  await getCoordinates(city);
+    // } catch (error) {
+    //   console.error("error on getting coordinated")
+    // }
     const projects = [];
     $('.projdis__prjcard .projdis__prjcard__leftcont').each((index, element) => {
       const name = $(element).find('.mghome__prjblk__prjname').text().trim();
