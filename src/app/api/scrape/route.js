@@ -301,6 +301,7 @@ export async function GET(req,res) {
      
       // const coordinates = { lat: 20.5937, lng: 78.9629 }
       projects.push({
+        id: Date.now() + index,
         name,
         location,
         priceRange,
