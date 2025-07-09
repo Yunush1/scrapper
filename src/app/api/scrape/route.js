@@ -333,11 +333,13 @@ export async function GET(req, res) {
     const response = await axios.get(url);
     const $ = cheerio.load(response.data);
     let coordinates = { lat: 28.199, lang: 17.833 };
-    // try {
-    //   coordinates =  await getCoordinates(city);
-    // } catch (error) {
-    //   console.error("error on getting coordinated")
-    // }
+        try {
+          // (async () => {
+            coordinates =  await getCoordinates(city);
+          // })();
+        } catch (error) {
+          console.error("error on getting coordinated")
+        }
     const projects = [];
     $(".projdis__prjcard .projdis__prjcard__leftcont").each(
       (index, element) => {
@@ -360,7 +362,7 @@ export async function GET(req, res) {
           .attr("src");
         const status = $(element).find(".mghome__prjblk__status").text().trim();
         // console.log('Project', name, location, priceRange, builder, bhk, image, status);
-
+        
         // const coordinates = { lat: 20.5937, lng: 78.9629 }
         projects.push({
           id: Date.now() + index,
