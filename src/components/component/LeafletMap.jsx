@@ -36,7 +36,7 @@ export default function LeafletMap({ projects }) {
 
     // Add new markers
     projects.forEach(project => {
-      const marker = L.marker([project.coordinates.lat, project.coordinates.lng])
+      const marker = L.marker([project?.coordinates?.lat || 28.199, project?.coordinates?.lng || 17.833])
         .addTo(mapInstanceRef.current)
         .bindPopup(`
           <div class="p-2">
